@@ -20,25 +20,33 @@ path=`pwd -P`
 
 gunzip ${path}${data}.gz
 
-# clip the adapter and discard clipped sequences and discard the sequences that are shorter then 17 nt; complete cDNAs contains the adapter sequence and incomplete does not
-fastx_clipper -Q 33 -a AGATCGGAAG -C -n -l 17 -i  ${path}${data} -o  ${path}${data}-incomplete.fq
-fastx_clipper -Q 33 -a AGATCGGAAG -c -n -l 17 -i  ${path}${data} -o  ${path}${data}-complete.fq
+# remove adapter seq and keep all reads that are longer then 26 nts which 17 nts (17nts seq + 5nts random barcode + 4nts experimental barcode); complete cDNAs contains the adapter sequence and incomplete does not
+fastx_clipper -Q 33 -C -n -l 26 -a AGATCGGAAG -i ${path}${data} -o ${path}${data}-incomplete.fq
+fastx_clipper -Q 33 -c -n -l 26 -a AGATCGGAAG -i ${path}${data} -o ${path}${data}-complete.fq
 
-# fastq to fasta
+# convert fastq to fasta
 fastq_to_fasta -Q 33 -n -i ${path}${data}-incomplete.fq -o ${path}${data}-incomplete.fa
 fastq_to_fasta -Q 33 -n -i ${path}${data}-complete.fq -o ${path}${data}-complete.fa
 rm ${path}${data}-incomplete.fq
 rm ${path}${data}-complete.fq
 
-# map to hg19
-bowtie2-align -x ~/bowtie-indexes/hg19/hg19 -f ${path}${data}-incomplete.fa -S ${path}${data}-incomplete.sam
-bowtie2-align -x ~/bowtie-indexes/hg19/hg19 -f ${path}${data}-complete.fa -S ${path}${data}-complete.sam
+# swap random barcodes to headers of fasta file
+python ${path}swap_barcode_to_header.py ${path}${data}-incomplete.fa ${path}${data}-incomplete-barcodes.fa
+python ${path}swap_barcode_to_header.py ${path}${data}-complete.fa ${path}${data}-complete-barcodes.fa
+rm ${path}${data}-incomplete.fa
+rm ${path}${data}-complete.fa
+
+# map to transcripts
+bowtie2-align -x /home/bowtie-indexes/Human-GRCh38.p2-CDS-transcripts/Human-GRCh38.p2-CDS-transcripts -f ${path}${data}-incomplete-barcodes.fa -S ${path}${data}-incomplete.sam
+bowtie2-align -x /home/bowtie-indexes/Human-GRCh38.p2-CDS-transcripts/Human-GRCh38.p2-CDS-transcripts -f ${path}${data}-complete-barcodes.fa -S ${path}${data}-complete.sam
 rm ${path}${data}-incomplete-barcodes.fa
 rm ${path}${data}-complete-barcodes.fa
 
-# filter reads with more then 2 mismatches
+# filter out all reads with more then 2 mismatches
 samtools view -Sh ${path}${data}-incomplete.sam | grep -e "^@" -e "XM:i:[012][^0-9]" > ${path}${data}-incomplete-2mis.sam
 samtools view -Sh ${path}${data}-complete.sam | grep -e "^@" -e "XM:i:[012][^0-9]" > ${path}${data}-complete-2mis.sam
+rm ${path}${data}-incomplete.sam
+rm ${path}${data}-complete.sam
 
 # SAM to BAM
 samtools view -hSb ${path}${data}-incomplete-2mis.sam > ${path}${data}-incomplete-2mis.bam
@@ -50,6 +58,12 @@ rm ${path}${data}-complete-2mis.sam
 bedtools bamtobed -i ${path}${data}-incomplete-2mis.bam > ${path}${data}-incomplete-2mis.bed
 bedtools bamtobed -i ${path}${data}-complete-2mis.bam > ${path}${data}-complete-2mis.bed
 
+# remove duplicates
+cat ${path}${data}-incomplete-2mis.bed | sort -k1,1 -k2,2n -k5,5 | uniq > ${path}${data}-incomplete-2mis-uniq.bed
+cat ${path}${data}-complete-2mis.bed | sort -k1,1 -k2,2n -k5,5 | uniq > ${path}${data}-complete-2mis-uniq.bed
+
 # compress the original data
 gzip ${path}${data}
+
+
 

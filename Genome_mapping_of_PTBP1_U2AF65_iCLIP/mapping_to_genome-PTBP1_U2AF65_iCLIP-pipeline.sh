@@ -47,20 +47,20 @@ samtools view -Sh ${path}${data}-incomplete.sam | grep -e "^@" -e "XM:i:[012][^0
 samtools view -Sh ${path}${data}-complete.sam | grep -e "^@" -e "XM:i:[012][^0-9]" > ${path}${data}-complete-2mis.sam
 
 # SAM to BAM
-samtools view -hSb ${path}${data}-incomplete-2mis.sam > ${path}${data}-incomplete.bam
-samtools view -hSb ${path}${data}-complete-2mis.sam > ${path}${data}-complete.bam
+samtools view -hSb ${path}${data}-incomplete-2mis.sam > ${path}${data}-incomplete-2mis.bam
+samtools view -hSb ${path}${data}-complete-2mis.sam > ${path}${data}-complete-2mis.bam
 rm ${path}${data}-incomplete-2mis.sam
 rm ${path}${data}-complete-2mis.sam
 
 # convert bam to bed
-bedtools bamtobed -i ${path}${data}-incomplete.bam > ${path}${data}-incomplete.bed
-bedtools bamtobed -i ${path}${data}-complete.bam > ${path}${data}-complete.bed
+bedtools bamtobed -i ${path}${data}-incomplete-2mis.bam > ${path}${data}-incomplete-2mis.bed
+bedtools bamtobed -i ${path}${data}-complete-2mis.bam > ${path}${data}-complete-2mis.bed
 
 # remove duplicates
-cat ${path}${data}-incomplete.bed | sort -k1,1 -k2,2n -k4,4 | uniq > ${path}${data}-incomplete-uniq.bed
-cat ${path}${data}-complete.bed | sort -k1,1 -k2,2n -k4,4 | uniq > ${path}${data}-complete-uniq.bed
-rm ${path}${data}-incomplete.bed
-rm ${path}${data}-complete.bed
+cat ${path}${data}-incomplete-2mis.bed | sort -k1,1 -k2,2n -k5,5 | uniq > ${path}${data}-incomplete-uniq-2mis.bed
+cat ${path}${data}-complete-2mis.bed | sort -k1,1 -k2,2n -k5,5 | uniq > ${path}${data}-complete-uniq-2mis.bed
+rm ${path}${data}-incomplete-2mis.bed
+rm ${path}${data}-complete-2mis.bed
 
 # compress the original data
 gzip ${path}${data}

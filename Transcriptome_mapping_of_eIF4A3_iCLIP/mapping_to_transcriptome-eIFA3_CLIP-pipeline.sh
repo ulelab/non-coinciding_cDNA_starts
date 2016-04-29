@@ -20,25 +20,27 @@ path=`pwd -P`
 
 gunzip ${path}${data}.gz
 
-# clip the adapter and discard clipped sequences and discard the sequences that are shorter then 17 nt; complete cDNAs contains the adapter sequence and incomplete does not
-fastx_clipper -Q 33 -a AGATCGGAAG -C -n -l 17 -i  ${path}${data} -o  ${path}${data}-incomplete.fq
-fastx_clipper -Q 33 -a AGATCGGAAG -c -n -l 17 -i  ${path}${data} -o  ${path}${data}-complete.fq
+# remove adapter seq and keep all reads that are longer then 26 nts which 17 nts; complete cDNAs contains the adapter sequence and incomplete does not
+fastx_clipper -Q 33 -C -n -l 17 -a AGATCGGAAG -i ${path}${data} -o ${path}${data}-incomplete.fq
+fastx_clipper -Q 33 -c -n -l 17 -a AGATCGGAAG -i ${path}${data} -o ${path}${data}-complete.fq
 
-# fastq to fasta
+# convert fastq to fasta
 fastq_to_fasta -Q 33 -n -i ${path}${data}-incomplete.fq -o ${path}${data}-incomplete.fa
 fastq_to_fasta -Q 33 -n -i ${path}${data}-complete.fq -o ${path}${data}-complete.fa
 rm ${path}${data}-incomplete.fq
 rm ${path}${data}-complete.fq
 
-# map to hg19
-bowtie2-align -x ~/bowtie-indexes/hg19/hg19 -f ${path}${data}-incomplete.fa -S ${path}${data}-incomplete.sam
-bowtie2-align -x ~/bowtie-indexes/hg19/hg19 -f ${path}${data}-complete.fa -S ${path}${data}-complete.sam
+# map to transcripts
+bowtie2-align -x /home/bowtie-indexes/Human-GRCh38.p2-CDS-transcripts/Human-GRCh38.p2-CDS-transcripts -f ${path}${data}-incomplete.fa -S ${path}${data}-incomplete.sam
+bowtie2-align -x /home/bowtie-indexes/Human-GRCh38.p2-CDS-transcripts/Human-GRCh38.p2-CDS-transcripts -f ${path}${data}-complete.fa -S ${path}${data}-complete.sam
 rm ${path}${data}-incomplete-barcodes.fa
 rm ${path}${data}-complete-barcodes.fa
 
-# filter reads with more then 2 mismatches
+# filter out all reads with more then 2 mismatches
 samtools view -Sh ${path}${data}-incomplete.sam | grep -e "^@" -e "XM:i:[012][^0-9]" > ${path}${data}-incomplete-2mis.sam
 samtools view -Sh ${path}${data}-complete.sam | grep -e "^@" -e "XM:i:[012][^0-9]" > ${path}${data}-complete-2mis.sam
+rm ${path}${data}-incomplete.sam
+rm ${path}${data}-complete.sam
 
 # SAM to BAM
 samtools view -hSb ${path}${data}-incomplete-2mis.sam > ${path}${data}-incomplete-2mis.bam
@@ -52,4 +54,6 @@ bedtools bamtobed -i ${path}${data}-complete-2mis.bam > ${path}${data}-complete-
 
 # compress the original data
 gzip ${path}${data}
+
+
 
