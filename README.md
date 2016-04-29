@@ -32,4 +32,4 @@ To draw the graph, we then used Gaussian method with a 10-nucleotide smoothing w
  - mapping_to_transcriptome-eIFA3_CLIP-pipeline.sh (eIFA3 mapping pipeline to transcriptome)
  - normalisation_and_density_graph-eIFA4.R (normalisation and drowing of eIFA3)
  - normalisation_and_density_graph-PTBP1-U2AF65.sh (normalisation and drowing of PTBP1 and U2AF65)
- - other scripts (tetramer finder, flanking BED positions)
+ - other scripts (kmer finder, flanking BED positions)
