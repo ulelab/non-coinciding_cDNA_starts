@@ -1,5 +1,9 @@
-# Final result of the script is a normalised figure around exon ends showing a density of complete and incomplete reads.
-# Input data are complete and incomplete reads mapped to the transcriptome sequence for eIFA3 RNA Binding Protein
+'''
+ Final result of the script is a normalised figure around exon ends showing a density of complete and incomplete reads.
+ Input data are complete and incomplete reads mapped to the transcriptome sequence for eIFA3 RNA Binding Protein:
+  args[1] <- "path to mapped complete cDNAs"
+  args[2] <- "path to mapped incompelte cDNAs"
+'''
 
 library("ggplot2")
 library("smoother")

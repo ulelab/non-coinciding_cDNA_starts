@@ -49,8 +49,6 @@ def find_kmers(fin_fname, fout_fname):
         kmer, freq = sorted_kmers[i]
         perc = (float(freq) / float(counter)) * 100.0
         fout.write(kmer + "\t" + str(freq) + '\t' + str(perc) + '\n')
-    #for kmer, freq in kmers.items():
-    #    fout.write(kmer + "\t" + str(freq) + '\n')
     fout.close()
     fout.close()
    

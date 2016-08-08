@@ -12,6 +12,9 @@ For mapping, we compiled a set of representative mRNA sequences from BioMart Ens
 #Classification of cDNA length
 Only cDNAs that mapped to a unique genomic position were evaluated. These were separated into cDNAs that were <30 nt, 30-34 nt, 35-39 nt or >40 long after trimming. 
 
+#Definition of crosslink-associated moti
+We reasoned that sequence motifs enriched directly at the starts of the control eCLIP cDNAs might uncover preferences of UV crosslinking, since they are thought to represent a mixture of crosslink sites for many different RBPs, and thus they should not reflect sequence specificity of any specific RBP. We therefore examined occurrence of tetramers that overlapped with the nucleotide preceding the cDNA-starts in PTBP1 control iCLIP (position -1) in comparison with the ones overlapping with the 10th nucleotide preceding the cDNA-starts (position -10). Tetramers that are enriched over 1.5 fold at position -1 compared to -10 include. We excluded the TTTT tetramer from further analyses, since it is often part of longer tracts of Ts, and therefore its inclusion decreases the resolution of analysis. Thus, TTTG, TTTC, TTGG, TTTA, ATTG, ATTT, TCGT, TTGA, TTCT and CTTT were used for all analyses of crosslink-associated motifs.
+
 #Normalisation of data for drawing of density graphs
 All normalisations were performed in R (version 3.1.0) together with “ggplot2” and “smoother” package for final graphical output.
 
@@ -25,6 +28,9 @@ RNAmap[n] = (MaxCount-normalised cDNAs[n]) / MaxCount-normalised cDNA density(ou
 where [n] stands for a specific position on the density graph.
 To draw the graph, we then used Gaussian method with a 10-nucleotide smoothing window. 
 
+# Assignment of the cDNA-end peak in eIF4A3 iCLIP
+For cDNA-end peak assignment in eIFA3 iCLIP data, we used exons longer then 100 nt that were in the top 50% of the distribution of exons based on cDNA coverage. This ensured that sufficient cDNAs were available for assignment of the putative binding sites. We then summarised all cDNA-end positions in the region -20 to +25 around exon-exon junctions and selected the position with the maximum cDNA count as the ‘cDNA-end peak’.
+
 # Main scripts
  - mapping_to_genome-PTBP1_and_U2AF65_iCLIP-pipeline.sh (PTBP1 and U2AF65 mapping pipeline to genome)
  - mapping_to_genome-PTBP1_and_U2AF65_CLIP-pipeline.sh (PTBP1 and U2AF65 mapping pipeline to genome)
@@ -32,4 +38,5 @@ To draw the graph, we then used Gaussian method with a 10-nucleotide smoothing w
  - mapping_to_transcriptome-eIFA3_CLIP-pipeline.sh (eIFA3 mapping pipeline to transcriptome)
  - normalisation_and_density_graph-eIFA4.R (normalisation and drowing of eIFA3)
  - normalisation_and_density_graph-PTBP1-U2AF65.sh (normalisation and drowing of PTBP1 and U2AF65)
+ - main_get_cDNA_peaks.sh (eIFA3 selecting top 1000 transcripts and reporiting/drawing around cDNA start and cDNA end peaks)
  - other scripts (kmer finder, flanking BED positions)
