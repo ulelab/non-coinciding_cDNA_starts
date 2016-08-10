@@ -39,4 +39,4 @@ For cDNA-end peak assignment in eIFA3 iCLIP data, we used exons longer then 100 
  - normalisation_and_density_graph-eIFA4.R (normalisation and drowing of eIFA3)
  - normalisation_and_density_graph-PTBP1-U2AF65.sh (normalisation and drowing of PTBP1 and U2AF65)
  - main_get_cDNA_peaks.sh (eIFA3 selecting top 1000 transcripts and reporiting/drawing around cDNA start and cDNA end peaks)
- - other scripts (kmer finder, flanking BED positions)
+ - other scripts (kmer finder, flanking BED positions, density of deletions across all cDNAs)
