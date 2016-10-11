@@ -12,7 +12,7 @@ For mapping, we compiled a set of representative mRNA sequences from BioMart Ens
 #Classification of cDNA length
 Only cDNAs that mapped to a unique genomic position were evaluated. These were separated into cDNAs that were <30 nt, 30-34 nt, 35-39 nt or >40 long after trimming. 
 
-#Definition of crosslink-associated moti
+#Definition of crosslink-associated motifs
 We reasoned that sequence motifs enriched directly at the starts of the control eCLIP cDNAs might uncover preferences of UV crosslinking, since they are thought to represent a mixture of crosslink sites for many different RBPs, and thus they should not reflect sequence specificity of any specific RBP. We therefore examined occurrence of tetramers that overlapped with the nucleotide preceding the cDNA-starts in PTBP1 control iCLIP (position -1) in comparison with the ones overlapping with the 10th nucleotide preceding the cDNA-starts (position -10). Tetramers that are enriched over 1.5 fold at position -1 compared to -10 include. We excluded the TTTT tetramer from further analyses, since it is often part of longer tracts of Ts, and therefore its inclusion decreases the resolution of analysis. Thus, TTTG, TTTC, TTGG, TTTA, ATTG, ATTT, TCGT, TTGA, TTCT and CTTT were used for all analyses of crosslink-associated motifs.
 
 #Normalisation of data for drawing of density graphs
