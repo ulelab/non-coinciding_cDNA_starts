@@ -15,6 +15,9 @@ Only cDNAs that mapped to a unique genomic position were evaluated. These were s
 #Definition of crosslink-associated motifs
 We reasoned that sequence motifs enriched directly at the starts of the control eCLIP cDNAs might uncover preferences of UV crosslinking, since they are thought to represent a mixture of crosslink sites for many different RBPs, and thus they should not reflect sequence specificity of any specific RBP. We therefore examined occurrence of tetramers that overlapped with the nucleotide preceding the cDNA-starts in PTBP1 control iCLIP (position -1) in comparison with the ones overlapping with the 10th nucleotide preceding the cDNA-starts (position -10). Tetramers that are enriched over 1.5 fold at position -1 compared to -10 include. We excluded the TTTT tetramer from further analyses, since it is often part of longer tracts of Ts, and therefore its inclusion decreases the resolution of analysis. Thus, TTTG, TTTC, TTGG, TTTA, ATTG, ATTT, TCGT, TTGA, TTCT and CTTT were used for all analyses of crosslink-associated motifs.
 
+#Definition of PTBP-target motifs
+To identify the motifs bound by PTBP1, we searched for pentamers enriched in the region [-10..10] around the cDNA-start peaks identified in each crosslink cluster defined by PTBP1-iCLIP2.  69 pentamers had enrichment z-score > 299 and were used as PTBP1-target pentamers for further analyses. Their sequences are: TCTTT, CTTTC, TCTTC, CTTCT, TCTCT, CTCTC, TTTCT, TTCTC, TTCTT, TTTTC, TCCTT, CTCTT, ATTTC, TTCCT, CTTCC, TTTCC, CCTTT, CTTTT, CCTTC, TCTGT, TTCTG, TCCTC, CTTCA, ATCTT, TGTCT, TCTGC, CTCCT, CCTCT, GTCTT, TCTAT, TCTCC, ATTCC, TTCTA, CTTTG, TATCT, ACTTC, TTATC, CTTAT, CTATT, TTCAT, TTCCA, TCTTG, TTGTC, TTGCT, CTCTA, CTCTG, TATTT, TCCCT, TCATT, TTCCC, CATTT, ATTCT, TTTAC, GTTCT, CTATC, TCATC, CTTTA, TGTTC, TATTC, CATCT, TACTT, CTGTT, CTTGC, ACCTT, TTTCA, TTTGT, TGTTT, CTTGT, ACTTT. All of these pentamers are enriched in pyrimidines, in agreement with the known preference of PTBP1 for UC-rich binding motifs.
+
 #Normalisation of data for drawing of density graphs
 All normalisations were performed in R (version 3.1.0) together with “ggplot2” and “smoother” package for final graphical output.
 
@@ -28,8 +31,14 @@ RNAmap[n] = (MaxCount-normalised cDNAs[n]) / MaxCount-normalised cDNA density(ou
 where [n] stands for a specific position on the density graph.
 To draw the graph, we then used Gaussian method with a 10-nucleotide smoothing window. 
 
-# Assignment of the cDNA-end peak in eIF4A3 iCLIP
+#Assignment of the cDNA-end peak in eIF4A3 iCLIP
 For cDNA-end peak assignment in eIFA3 iCLIP data, we used exons longer then 100 nt that were in the top 50% of the distribution of exons based on cDNA coverage. This ensured that sufficient cDNAs were available for assignment of the putative binding sites. We then summarised all cDNA-end positions in the region -20 to +25 around exon-exon junctions and selected the position with the maximum cDNA count as the ‘cDNA-end peak’.
+
+#Analysis of pairing probability
+Computational prediction of the secondary structure around the cDNA-end peaks was performed using the RNAfold program with the default parameters.
+
+#Analysis of cDNA transitions
+Density of U>T transitions across cDNAs was performed by using the samtools software with the the following parameters: samtools calmd –u –u genomic.fasta input_BAM > BAM-with_transitions. This pipeline replaces BAM format mapped cDNA sequences with transitions relative to genomic reference. This step was performed with a custom python script (available on github repository) that returns a density array of U>T transitions for cDNAs that are shorter then 40 nts. For the final visualisation of density graphs we used the same approach as for all other density figures. 
 
 # Main scripts
  - mapping_to_genome-PTBP1_and_U2AF65_iCLIP-pipeline.sh (PTBP1 and U2AF65 mapping pipeline to genome)
