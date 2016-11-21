@@ -1,4 +1,5 @@
-# Non-coinciding cDNA starts
+# iCLIP Insights into the design and interpretation of iCLIP experiments
+All the source code is released under an open source license compliant with OSI (http://opensource.org/licenses).
 
 #Trimming of adapter sequences
 Before mapping the cDNAs, we removed random barcodes and trimmed the 3´ Solexa adapter sequence. Adapter sequences were trimmed by FASTX-Toolkit 0.0.13 adapter removal software, using the following parameters: -Q 33 -a AGATCGGAAG -c -n -l 26. For reads that did not contain parts of the adapter sequence, -C parameter was used, and these were analyzed separately.
