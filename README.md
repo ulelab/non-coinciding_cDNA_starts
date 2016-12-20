@@ -41,6 +41,9 @@ Computational prediction of the secondary structure around the cDNA-end peaks wa
 #Analysis of cDNA transitions
 Density of U>T transitions across cDNAs was performed by using the samtools software with the the following parameters: samtools calmd –u –u genomic.fasta input_BAM > BAM-with_transitions. This pipeline replaces BAM format mapped cDNA sequences with transitions relative to genomic reference. This step was performed with a custom python script (available on github repository) that returns a density array of U>T transitions for cDNAs that are shorter then 40 nts. For the final visualisation of density graphs we used the same approach as for all other density figures. 
 
+#Identification of crosslink clusters
+The crosslink clusters were identified by False Discovery Rate peak finding algorithm from iCount (https://github.com/tomazc/iCount), by considering all crosslink sites that were significant with a FDR<0.05 at a maximum half windows spacing of 3 nt between crosslink sites. Than, the significant peaks were merged into final clusters by distance of 3 nt.
+
 # Main scripts
  - mapping_to_genome-PTBP1_and_U2AF65_iCLIP-pipeline.sh (PTBP1 and U2AF65 mapping pipeline to genome)
  - mapping_to_genome-PTBP1_and_U2AF65_CLIP-pipeline.sh (PTBP1 and U2AF65 mapping pipeline to genome)
