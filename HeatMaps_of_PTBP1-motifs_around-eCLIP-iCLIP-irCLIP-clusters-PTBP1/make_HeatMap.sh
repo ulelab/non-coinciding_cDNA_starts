@@ -1,5 +1,6 @@
 #!/bin/bash -l
 # Clusters must be in BED foramt and kmers separated by new lines. The fasta file was downlaoded from ucsc website for hg19 genome.
+# Tested on bedtools version 2.22.1 
 
 # input
 clusters=$1
