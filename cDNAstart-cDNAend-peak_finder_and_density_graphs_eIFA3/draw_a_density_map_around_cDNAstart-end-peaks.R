@@ -12,8 +12,8 @@ colour60 <- "#EA882C"
 
 ####################
 
-RNAmap.1 <- read.table(args[1], sep='\t') #complete cDNAs (containing the adapter sequence)
-junctions <- read.table(args[2])  #junction and peak positions relative to junctions
+RNAmap.1 <- read.table(args[1], sep='\t') #cDNAs < 40 nt (containing the adapter sequence)
+junctions <- read.table(args[2])  #junction and cDNA-end or start peak positions relative to exon-exon junction
 
 # select only reads that are from selected junctions
 RNAmap.1 <- merge(RNAmap.1, junctions, by=c("V1","V2","V3"),all=FALSE)
