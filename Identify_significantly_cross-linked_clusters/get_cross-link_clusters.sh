@@ -3,6 +3,7 @@
 # To identify cross-linked clusters we will first have to define significantly cross linked binding sites by using iCount tools:
 # https://github.com/tomazc/iCount
 # 
+# Tested on bedtools version 2.22.1 
 
 # we are using a virtual environment for iCount: http://icount.readthedocs.io/en/latest/installation.html#installing-from-source
 source ../iCount/bin/activate
