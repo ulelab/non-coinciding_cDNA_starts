@@ -57,8 +57,8 @@ bedtools bamtobed -i ${path}${data}-incomplete-2mis.bam > ${path}${data}-incompl
 bedtools bamtobed -i ${path}${data}-complete-2mis.bam > ${path}${data}-complete-2mis.bed
 
 # remove duplicates
-cat ${path}${data}-incomplete-2mis.bed | sort -k1,1 -k2,2n -k5,5 | uniq > ${path}${data}-incomplete-uniq-2mis.bed
-cat ${path}${data}-complete-2mis.bed | sort -k1,1 -k2,2n -k5,5 | uniq > ${path}${data}-complete-uniq-2mis.bed
+cat ${path}${data}-incomplete-2mis.bed | sort -k1,1 -k2,2n -k5,5 | uniq > ${path}${data}-long-uniq-2mis.bed
+cat ${path}${data}-complete-2mis.bed | sort -k1,1 -k2,2n -k5,5 | uniq > ${path}${data}-short-uniq-2mis.bed
 rm ${path}${data}-incomplete-2mis.bed
 rm ${path}${data}-complete-2mis.bed
 

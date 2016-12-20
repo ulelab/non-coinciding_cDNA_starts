@@ -47,8 +47,8 @@ rm ${path}${data}-incomplete-2mis.sam
 rm ${path}${data}-complete-2mis.sam
 
 # convert bam to bed
-bedtools bamtobed -i ${path}${data}-incomplete-2mis.bam > ${path}${data}-incomplete-2mis.bed
-bedtools bamtobed -i ${path}${data}-complete-2mis.bam > ${path}${data}-complete-2mis.bed
+bedtools bamtobed -i ${path}${data}-incomplete-2mis.bam > ${path}${data}-long-2mis.bed
+bedtools bamtobed -i ${path}${data}-complete-2mis.bam > ${path}${data}-short-2mis.bed
 
 # compress the original data
 gzip ${path}${data}

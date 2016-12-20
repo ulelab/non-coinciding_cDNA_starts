@@ -32,7 +32,7 @@ RNAmap[n] = (MaxCount-normalised cDNAs[n]) / MaxCount-normalised cDNA density(ou
 where [n] stands for a specific position on the density graph.
 To draw the graph, we then used Gaussian method with a 10-nucleotide smoothing window. 
 
-#Assignment of the cDNA-end peak in eIF4A3 iCLIP
+#Assignment of the cDNA-end and cDNA-start peaks in eIF4A3 iCLIP
 For cDNA-end peak assignment in eIFA3 iCLIP data, we used exons longer then 100 nt that were in the top 50% of the distribution of exons based on cDNA coverage. This ensured that sufficient cDNAs were available for assignment of the putative binding sites. We then summarised all cDNA-end positions in the region -20 to +25 around exon-exon junctions and selected the position with the maximum cDNA count as the ‘cDNA-end peak’.
 
 #Analysis of pairing probability
@@ -49,5 +49,6 @@ Density of U>T transitions across cDNAs was performed by using the samtools soft
  - normalisation_and_density_graph-eIFA4.R (normalisation and drowing of eIFA3)
  - normalisation_and_density_graph-PTBP1-U2AF65.sh (normalisation and drowing of PTBP1 and U2AF65)
  - main_get_cDNAstart-end_peaks.sh (eIFA3 selecting top 1000 transcripts and reporiting/drawing around cDNA start and cDNA end peaks)
+ - get_cross-link_clusters.sh (get cross-link clusters from mapped cDNAs with iCount - peak calling function)
  - make_HeatMap.sh (PTBP1 motif heatmaps for grouped clusters)
  - other scripts (kmer finder, flanking BED positions, density of deletions across all cDNAs, density of C to T transitions)
