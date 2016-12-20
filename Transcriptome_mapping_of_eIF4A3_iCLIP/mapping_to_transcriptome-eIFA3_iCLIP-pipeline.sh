@@ -37,6 +37,7 @@ rm ${path}${data}-incomplete.fa
 rm ${path}${data}-complete.fa
 
 # map to transcripts
+# important: this is a custom made bowtie index build from Ensemble Biomart by selecting fasta from only coding sequences (CDS) and saving exon positions in the header of the fasta
 bowtie2-align -x /home/bowtie-indexes/Human-GRCh38.p2-CDS-transcripts/Human-GRCh38.p2-CDS-transcripts -f ${path}${data}-incomplete-barcodes.fa -S ${path}${data}-incomplete.sam
 bowtie2-align -x /home/bowtie-indexes/Human-GRCh38.p2-CDS-transcripts/Human-GRCh38.p2-CDS-transcripts -f ${path}${data}-complete-barcodes.fa -S ${path}${data}-complete.sam
 rm ${path}${data}-incomplete-barcodes.fa
@@ -59,8 +60,8 @@ bedtools bamtobed -i ${path}${data}-incomplete-2mis.bam > ${path}${data}-incompl
 bedtools bamtobed -i ${path}${data}-complete-2mis.bam > ${path}${data}-complete-2mis.bed
 
 # remove duplicates
-cat ${path}${data}-incomplete-2mis.bed | sort -k1,1 -k2,2n -k5,5 | uniq > ${path}${data}-incomplete-2mis-uniq.bed
-cat ${path}${data}-complete-2mis.bed | sort -k1,1 -k2,2n -k5,5 | uniq > ${path}${data}-complete-2mis-uniq.bed
+cat ${path}${data}-incomplete-2mis.bed | sort -k1,1 -k2,2n -k5,5 | uniq > ${path}${data}-long-2mis-uniq.bed
+cat ${path}${data}-complete-2mis.bed | sort -k1,1 -k2,2n -k5,5 | uniq > ${path}${data}-short-2mis-uniq.bed
 
 # compress the original data
 gzip ${path}${data}

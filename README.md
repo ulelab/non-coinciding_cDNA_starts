@@ -48,5 +48,6 @@ Density of U>T transitions across cDNAs was performed by using the samtools soft
  - mapping_to_transcriptome-eIFA3_CLIP-pipeline.sh (eIFA3 mapping pipeline to transcriptome)
  - normalisation_and_density_graph-eIFA4.R (normalisation and drowing of eIFA3)
  - normalisation_and_density_graph-PTBP1-U2AF65.sh (normalisation and drowing of PTBP1 and U2AF65)
- - main_get_cDNA_peaks.sh (eIFA3 selecting top 1000 transcripts and reporiting/drawing around cDNA start and cDNA end peaks)
+ - main_get_cDNAstart-end_peaks.sh (eIFA3 selecting top 1000 transcripts and reporiting/drawing around cDNA start and cDNA end peaks)
+ - make_HeatMap.sh (PTBP1 motif heatmaps for grouped clusters)
  - other scripts (kmer finder, flanking BED positions, density of deletions across all cDNAs, density of C to T transitions)

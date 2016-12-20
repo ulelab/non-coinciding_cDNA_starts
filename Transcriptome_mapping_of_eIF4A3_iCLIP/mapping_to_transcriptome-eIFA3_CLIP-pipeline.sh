@@ -31,6 +31,7 @@ rm ${path}${data}-incomplete.fq
 rm ${path}${data}-complete.fq
 
 # map to transcripts
+# important: this is a custom made bowtie index build from Ensemble Biomart by selecting fasta from only coding sequences (CDS) and saving exon positions in the header of the fasta
 bowtie2-align -x /home/bowtie-indexes/Human-GRCh38.p2-CDS-transcripts/Human-GRCh38.p2-CDS-transcripts -f ${path}${data}-incomplete.fa -S ${path}${data}-incomplete.sam
 bowtie2-align -x /home/bowtie-indexes/Human-GRCh38.p2-CDS-transcripts/Human-GRCh38.p2-CDS-transcripts -f ${path}${data}-complete.fa -S ${path}${data}-complete.sam
 rm ${path}${data}-incomplete-barcodes.fa
@@ -49,8 +50,8 @@ rm ${path}${data}-incomplete-2mis.sam
 rm ${path}${data}-complete-2mis.sam
 
 # convert bam to bed
-bedtools bamtobed -i ${path}${data}-incomplete-2mis.bam > ${path}${data}-incomplete-2mis.bed
-bedtools bamtobed -i ${path}${data}-complete-2mis.bam > ${path}${data}-complete-2mis.bed
+bedtools bamtobed -i ${path}${data}-incomplete-2mis.bam > ${path}${data}-long-2mis.bed
+bedtools bamtobed -i ${path}${data}-complete-2mis.bam > ${path}${data}-short-2mis.bed
 
 # compress the original data
 gzip ${path}${data}
