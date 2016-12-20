@@ -4,7 +4,7 @@ Created on Nov 28, 2013
 @author: Nejc Haberman
 
 
-The script will read fasta file and remove random barcode and experimental barcode from fasta. Random barcode will be saved in the header of fasta file
+The script will read fasta file and remove random barcode and experimental barcode from fasta. Random barcode will be saved in the header of fasta file.
 '''
 
 

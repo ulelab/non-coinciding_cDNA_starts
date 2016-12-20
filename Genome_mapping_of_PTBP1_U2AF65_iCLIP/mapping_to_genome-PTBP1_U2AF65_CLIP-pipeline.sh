@@ -5,6 +5,8 @@
 #$ -j y
 #$ -S /bin/bash
 
+# list of all tools
+'''
 PYTHONPATH=/home/programs/Python-2.7.5/bin
 PERL5LIB=/home/programs/ActivePerl-5.16.3.1603-x86_64-linux-glibc-2.3.5-296746/perl/bin
 export PATH=$PYTHONPATH:$PATH
@@ -14,7 +16,7 @@ export PATH=/home/programs/bowtie2-2.1.0:$PATH
 export PATH=/home/programs/samtools-0.1.19:$PATH
 export PATH=/home/programs/fastx_toolkit0.0.13:$PATH
 export PATH=/home/programs/bedtools-2.17.0/bin:$PATH
-
+'''
 data=$1
 path=`pwd -P`
 
