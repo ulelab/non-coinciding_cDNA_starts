@@ -21,7 +21,7 @@ python BEDsum-iCount.py ${data}${hw}nt.tmp/xlink-sorted.tmp > ${data}.xlink.sum.
 
 # find significant cross-link peaks and merge them into clusters
 iCount peaks --half_window ${hw} --fdr 0.05 --perms 100 ${genome} ${data}.xlink.sum.bed ${data}.xlink.sum.${hw}nt.hw-peaks.tab --scores ${data}.xlink.sum.${hw}nt.hw-scores.tsv
-cat ${data}.xlink.sum.${hw}nt.hw-peaks.tab | awk '{print $1 "\t" $2 "\t" $3 "\t.\t.\t" $5}' > ${data}.xlink.sum.${hw}nt.hw-peaks.bed	#convert it to bed format
+cat ${data}.xlink.sum.${hw}nt.hw-peaks.tab | awk '{print $1 "\t" $2 "\t" $3 "\t.\t.\t" $8}' > ${data}.xlink.sum.${hw}nt.hw-peaks.bed	#convert it to bed format
 bedtools merge -i ${data}.xlink.sum.${hw}nt.hw-peaks.bed -s -d 3 -c 5,5,6 -o distinct,count,distinct > ${data}.xlink.sum.${hw}nt.hw-peaks.3nt.clusters.bed
 
 rm -r ${data}${hw}nt.tmp
