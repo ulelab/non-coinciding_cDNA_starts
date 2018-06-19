@@ -44,6 +44,9 @@ Density of U>T transitions across cDNAs was performed by using the samtools soft
 #Identification of crosslink clusters
 The crosslink clusters were identified by False Discovery Rate peak finding algorithm from iCount (https://github.com/tomazc/iCount), by considering all crosslink sites that were significant with a FDR<0.05 at a maximum half windows spacing of 3 nt between crosslink sites. Than, the significant peaks were merged into final clusters by distance of 3 nt.
 
+# 5prime marker - Read–through vs. truncated reads comparison (modified iCLIP protocol with 5’-marker ligation )
+Before mapping the cDNA’s, the FASTQ sequences were separated into two groups based on the 5’-marker CAGUCCGACGAUC sequence by using '5p_marker-read_through_vs_truncated-cDNAs-mapping/FASTQ2FASTA-swap_barcode_to_header-readThrough.py' python script. Reads containing the 5’marker sequence were marked as ‘read-through and the rest as ‘truncated’ group. The 5’-marker sequence was then removed from further analysis and processed with the same pipeline as ‘truncated’ group.
+
 # Main scripts
  - mapping_to_genome-PTBP1_and_U2AF65_iCLIP-pipeline.sh (PTBP1 and U2AF65 mapping pipeline to genome)
  - mapping_to_genome-PTBP1_and_U2AF65_CLIP-pipeline.sh (PTBP1 and U2AF65 mapping pipeline to genome)
